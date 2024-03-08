@@ -1,0 +1,39 @@
+version: '3.6'
+
+services:
+  api:
+    container_name: api 
+    image: car-list-api:latest
+    restart: 'on-failure'
+    build:
+      dockerfile: ../api/docker/Dockerfile
+      context: ../api/
+    env_file:
+      - ./env/api.env
+    volumes:
+      - ./api/dist:/opt/app/dist:ro
+    ports:
+      - 3000:3000
+    networks:
+      - car-list
+
+  db:
+    container_name: db
+    image: mysql:8.0.36-debian
+    restart: 'on-failure'
+    env_file:
+      - env/db.env
+    command:
+      - --ssl=0
+    ports: 
+      - 33306:3306
+    networks:
+      - car-list
+    
+networks:
+  car-list:
+    driver: bridge
+    name: car-list
+    ipam:
+      config:
+        - subnet: 172.20.30.0/24
