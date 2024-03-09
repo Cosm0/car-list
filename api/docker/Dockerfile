@@ -17,4 +17,3 @@ COPY --from=build /opt/app/package.json /opt/app/package.json
 COPY --from=build /opt/app/dist /opt/app/dist
 COPY --from=build /opt/app/node_modules /opt/app/node_modules/
 EXPOSE 3000
-CMD ["npm", "run", "start:prod"]
