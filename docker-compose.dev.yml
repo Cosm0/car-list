@@ -8,6 +8,9 @@ services:
     build:
       dockerfile: ./api/docker/Dockerfile
       context: .
+    depends_on:
+      db:
+        condition: service_healthy
     env_file:
       - ./env/api.env
       - ./env/db.env
@@ -28,6 +31,9 @@ services:
       - env/db.env
     command:
       - --ssl=0
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-u", "root", "-p${MYSQL_ROOT_PASSWORD}"]
+      interval: 30s
     ports: 
       - 33306:3306
     networks:
