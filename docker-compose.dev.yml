@@ -15,7 +15,7 @@ services:
       - ./env/api.env
       - ./env/db.env
     environment:
-      - TYPEORM_SYNCHRONIZE=true
+      - NODE_ENV=develop
     volumes:
       - ./api/:/opt/app/
     ports:
