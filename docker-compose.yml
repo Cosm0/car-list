@@ -10,6 +10,8 @@ services:
       context: .
     env_file:
       - ./env/api.env
+    environment:
+      - TYPEORM_SYNCHRONIZE=false
     depends_on:
       db:
         condition: service_healthy
