@@ -20,7 +20,10 @@ import { AuthModule } from './auth/auth.module';
         password: configService.get('db.password'),
         synchronize: configService.get('node_env') === 'develop',
         entities: ['dist/typeorm/entities/*{.ts,.js}'],
-        migrations: ['dist/typeorm/migrations/*{.ts,.js}'],
+        migrations:
+          configService.get('node_env') === 'production'
+            ? ['dist/typeorm/migrations/*{.ts,.js}']
+            : [],
         migrationsRun: configService.get('node_env') === 'production',
       }),
       inject: [ConfigService],
