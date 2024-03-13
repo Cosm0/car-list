@@ -9,12 +9,6 @@ export class UsersService {
   constructor(@InjectRepository(User) private usersRepo: Repository<User>) {}
 
   fetchUsers() {
-    // TODO: implement
-    console.log('Fetching users...');
-  }
-
-  createUser() {
-    // TODO: implement
-    console.log('Posting users...');
+    return this.usersRepo.find();
   }
 }
