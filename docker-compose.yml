@@ -10,6 +10,7 @@ services:
       context: .
     env_file:
       - ./env/api.env
+      - ./env/db.env
     environment:
       - NODE_ENV=production
     depends_on:
