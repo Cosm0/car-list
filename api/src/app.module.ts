@@ -4,10 +4,13 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 
 import { AppController } from './app.controller';
 import { SharedModule } from './shared/shared.module';
+import { APP_FILTER } from '@nestjs/core';
+
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { VehiclesModule } from './vehicles/vehicles.module';
 import { RentersModule } from './renters/renters.module';
+import { GlobalExceptionFilter } from './global-exception.filter';
 
 @Module({
   imports: [
@@ -35,6 +38,11 @@ import { RentersModule } from './renters/renters.module';
     RentersModule,
   ],
   controllers: [AppController],
-  providers: [],
+  providers: [
+    {
+      provide: APP_FILTER,
+      useClass: GlobalExceptionFilter,
+    },
+  ],
 })
 export class AppModule {}
