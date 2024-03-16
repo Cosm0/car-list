@@ -8,7 +8,7 @@ import { User } from 'src/typeorm/entities/User';
 export class UsersService {
   constructor(@InjectRepository(User) private usersRepo: Repository<User>) {}
 
-  fetchUsers() {
+  fetchUsers(): Promise<User[]> {
     return this.usersRepo.find();
   }
 }

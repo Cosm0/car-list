@@ -8,7 +8,7 @@ import {
 import { Renter } from './Renter';
 
 @Entity({ name: 'vehicles' })
-export class Vehicles {
+export class Vehicle {
   @PrimaryGeneratedColumn()
   id: number;
 
