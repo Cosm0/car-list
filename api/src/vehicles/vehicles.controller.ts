@@ -11,7 +11,7 @@ import {
 } from '@nestjs/common';
 import { VehiclesService } from './vehicles.service';
 import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
-import { CreateVehicleDto, UpdateVehicleDto } from './VehicleDtos';
+import { CreateVehicleDto, UpdateVehicleDto } from './vehicleDtos';
 import { Vehicle } from 'src/typeorm/entities/Vehicle';
 import { DeleteResult, UpdateResult } from 'typeorm';
 

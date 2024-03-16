@@ -1,32 +1,69 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DeleteResult, Repository, UpdateResult } from 'typeorm';
+import { faker } from '@faker-js/faker';
 
 import { Vehicle } from 'src/typeorm/entities/Vehicle';
-import { CreateVehicleDto, UpdateVehicleDto } from './VehicleDtos';
+import {
+  CreateVehicleDto,
+  GetVehicleDto,
+  UpdateVehicleDto,
+} from './vehicleDtos';
+import { fromSingle, fromMany } from './getVehiclesFactory';
+import { Renter } from 'src/typeorm/entities/Renter';
 
 @Injectable()
 export class VehiclesService {
-  constructor(@InjectRepository(Vehicle) private repo: Repository<Vehicle>) {}
+  constructor(
+    @InjectRepository(Vehicle) private vehiclesRepo: Repository<Vehicle>,
+    @InjectRepository(Renter) private rentersRepo: Repository<Renter>,
+  ) {}
 
-  public fetchAll(): Promise<Vehicle[]> {
-    return this.repo.find();
+  public async fetchAll(): Promise<GetVehicleDto[]> {
+    const dbData = await this.vehiclesRepo.find();
+    return fromMany(dbData);
   }
 
-  public fetchSingle(id: number): Promise<Vehicle> {
-    return this.repo.findOne({ where: { id } });
+  public async fetchSingle(id: number): Promise<GetVehicleDto> {
+    const dbData = await this.vehiclesRepo.findOne({ where: { id } });
+    return fromSingle(dbData);
   }
 
-  public add(data: CreateVehicleDto): Promise<Vehicle> {
-    const vehicle = this.repo.create({ ...data });
-    return this.repo.save(vehicle);
+  public async add(data: CreateVehicleDto): Promise<Vehicle> {
+    const { brand, model, registrationNumber, vin, renterId } = data;
+    const renter = renterId
+      ? await this.rentersRepo.findOne({ where: { id: renterId } })
+      : null;
+    const vehicle = this.vehiclesRepo.create({
+      brand,
+      model,
+      regNbr: registrationNumber,
+      renter,
+      vin,
+      latitude: faker.location.latitude(),
+      longitude: faker.location.longitude(),
+    });
+    return this.vehiclesRepo.save(vehicle);
   }
 
-  public edit(id: number, data: UpdateVehicleDto): Promise<UpdateResult> {
-    return this.repo.update({ id }, { ...data });
+  public async edit(id: number, data: UpdateVehicleDto): Promise<UpdateResult> {
+    const { brand, model, registrationNumber, vin, renterId } = data;
+    const renter = renterId
+      ? await this.rentersRepo.findOne({ where: { id: renterId } })
+      : null;
+    const vehicle = this.vehiclesRepo.create({
+      brand,
+      model,
+      regNbr: registrationNumber,
+      renter,
+      vin,
+      latitude: faker.location.latitude(),
+      longitude: faker.location.longitude(),
+    });
+    return this.vehiclesRepo.update({ id }, { ...vehicle });
   }
 
   public remove(id: number): Promise<DeleteResult> {
-    return this.repo.delete({ id });
+    return this.vehiclesRepo.delete({ id });
   }
 }

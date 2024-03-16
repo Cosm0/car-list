@@ -7,6 +7,7 @@ import { SharedModule } from './shared/shared.module';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { VehiclesModule } from './vehicles/vehicles.module';
+import { RentersModule } from './renters/renters.module';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { VehiclesModule } from './vehicles/vehicles.module';
     }),
     AuthModule,
     VehiclesModule,
+    RentersModule,
   ],
   controllers: [AppController],
   providers: [],
