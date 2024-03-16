@@ -29,7 +29,7 @@ export class VehiclesService {
     return fromSingle(dbData);
   }
 
-  public async add(data: CreateVehicleDto): Promise<Vehicle> {
+  public async add(data: CreateVehicleDto): Promise<GetVehicleDto> {
     const { brand, model, registrationNumber, vin, renterId } = data;
     const renter = renterId
       ? await this.rentersRepo.findOne({ where: { id: renterId } })
@@ -43,7 +43,8 @@ export class VehiclesService {
       latitude: faker.location.latitude(),
       longitude: faker.location.longitude(),
     });
-    return this.vehiclesRepo.save(vehicle);
+    await this.vehiclesRepo.save(vehicle);
+    return fromSingle(vehicle);
   }
 
   public async edit(id: number, data: UpdateVehicleDto): Promise<UpdateResult> {

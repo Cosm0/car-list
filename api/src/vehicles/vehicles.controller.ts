@@ -9,11 +9,15 @@ import {
   Put,
   UseGuards,
 } from '@nestjs/common';
+import { DeleteResult, UpdateResult } from 'typeorm';
+
 import { VehiclesService } from './vehicles.service';
 import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
-import { CreateVehicleDto, UpdateVehicleDto } from './vehicleDtos';
-import { Vehicle } from 'src/typeorm/entities/Vehicle';
-import { DeleteResult, UpdateResult } from 'typeorm';
+import {
+  CreateVehicleDto,
+  GetVehicleDto,
+  UpdateVehicleDto,
+} from './vehicleDtos';
 
 @Controller('vehicles')
 export class VehiclesController {
@@ -21,19 +25,19 @@ export class VehiclesController {
 
   @Get()
   @UseGuards(JwtAuthGuard)
-  getAll(): Promise<Vehicle[]> {
+  getAll(): Promise<GetVehicleDto[]> {
     return this.vehiclesService.fetchAll();
   }
 
   @Get(':id')
   @UseGuards(JwtAuthGuard)
-  getSingle(@Param('id', ParseIntPipe) id: number): Promise<Vehicle> {
+  getSingle(@Param('id', ParseIntPipe) id: number): Promise<GetVehicleDto> {
     return this.vehiclesService.fetchSingle(id);
   }
 
   @Post()
   @UseGuards(JwtAuthGuard)
-  add(@Body() data: CreateVehicleDto): Promise<Vehicle> {
+  add(@Body() data: CreateVehicleDto): Promise<GetVehicleDto> {
     return this.vehiclesService.add(data);
   }
 
