@@ -7,9 +7,14 @@ import { AppModule } from './app.module';
 async function bootstrap() {
   try {
     const app = await NestFactory.create(AppModule);
-    app.useGlobalPipes(new ValidationPipe());
     const configService = app.get(ConfigService);
     const port = configService.get('port');
+    app.useGlobalPipes(
+      new ValidationPipe({
+        disableErrorMessages: configService.get('isProduction'),
+        transform: true,
+      }),
+    );
 
     await app.listen(port);
     console.log(`Server listening on port ${port}`);
