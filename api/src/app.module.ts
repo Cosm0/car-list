@@ -16,7 +16,7 @@ import { GlobalExceptionFilter } from './global-exception.filter';
   imports: [
     SharedModule,
     TypeOrmModule.forRootAsync({
-      imports: [SharedModule, ConfigModule, UsersModule],
+      imports: [SharedModule, ConfigModule],
       useFactory: async (configService: ConfigService) => ({
         type: 'mysql',
         host: configService.get('db.host'),
@@ -36,6 +36,7 @@ import { GlobalExceptionFilter } from './global-exception.filter';
     AuthModule,
     VehiclesModule,
     RentersModule,
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [
