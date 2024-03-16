@@ -40,8 +40,8 @@ export class VehiclesService {
       regNbr: registrationNumber,
       renter,
       vin,
-      latitude: faker.location.latitude(),
-      longitude: faker.location.longitude(),
+      latitude: faker.location.latitude({ min: -90, max: 90 }),
+      longitude: faker.location.longitude({ min: -180, max: 180 }),
     });
     await this.vehiclesRepo.save(vehicle);
     return fromSingle(vehicle);
@@ -58,8 +58,8 @@ export class VehiclesService {
       regNbr: registrationNumber,
       renter,
       vin,
-      latitude: faker.location.latitude(),
-      longitude: faker.location.longitude(),
+      latitude: faker.location.latitude({ min: -90, max: 90 }),
+      longitude: faker.location.longitude({ min: -180, max: 180 }),
     });
     return this.vehiclesRepo.update({ id }, { ...vehicle });
   }
