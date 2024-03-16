@@ -2,7 +2,7 @@ import { Controller, Get, UseGuards } from '@nestjs/common';
 
 import { UsersService } from './users.service';
 import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
-import { User } from 'src/typeorm/entities/User';
+import { GetUserDto } from './usersDto';
 
 @Controller('users')
 export class UsersController {
@@ -10,7 +10,7 @@ export class UsersController {
 
   @Get()
   @UseGuards(JwtAuthGuard)
-  getUsers(): Promise<User[]> {
+  getUsers(): Promise<GetUserDto[]> {
     return this.usersService.fetchUsers();
   }
 }
