@@ -20,6 +20,7 @@ import {
 } from './vehicleDtos';
 
 @Controller('vehicles')
+@UseGuards(JwtAuthGuard)
 export class VehiclesController {
   constructor(private vehiclesService: VehiclesService) {}
 
@@ -30,19 +31,16 @@ export class VehiclesController {
   }
 
   @Get(':id')
-  @UseGuards(JwtAuthGuard)
   getSingle(@Param('id', ParseIntPipe) id: number): Promise<GetVehicleDto> {
     return this.vehiclesService.fetchSingle(id);
   }
 
   @Post()
-  @UseGuards(JwtAuthGuard)
   add(@Body() data: CreateVehicleDto): Promise<GetVehicleDto> {
     return this.vehiclesService.add(data);
   }
 
   @Put(':id')
-  @UseGuards(JwtAuthGuard)
   update(
     @Param('id', ParseIntPipe) id: number,
     @Body() data: UpdateVehicleDto,
@@ -51,7 +49,6 @@ export class VehiclesController {
   }
 
   @Delete(':id')
-  @UseGuards(JwtAuthGuard)
   delete(@Param('id', ParseIntPipe) id: number): Promise<DeleteResult> {
     return this.vehiclesService.remove(id);
   }

@@ -5,11 +5,11 @@ import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
 import { GetRenterDto } from './rentersDto';
 
 @Controller('renters')
+@UseGuards(JwtAuthGuard)
 export class RentersController {
   constructor(private rentersService: RentersService) {}
 
   @Get()
-  @UseGuards(JwtAuthGuard)
   getUsers(): Promise<GetRenterDto[]> {
     return this.rentersService.fetchAll();
   }
