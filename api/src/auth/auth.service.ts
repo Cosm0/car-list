@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { compare, hash } from 'bcryptjs';
 
-import { AuthPayloadDto } from './dto/auth.dto';
+import { SingInDto } from './dto/auth.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/typeorm/entities/User';
 import { Repository } from 'typeorm';
@@ -16,7 +16,7 @@ export class AuthService {
 
   private saltRounds = 10;
 
-  async validateUser({ username, password }: AuthPayloadDto) {
+  async validateUser({ username, password }: SingInDto) {
     const foundUser = await this.usersRepository.findOne({
       where: { username },
     });
@@ -25,10 +25,23 @@ export class AuthService {
     // const passMatch = this.comparePassword(password, foundUser.password);
     if (!foundUser || !passMatch) return null;
 
-    return this.jwtService.sign({
+    const authToken = this.jwtService.sign({
       id: foundUser.id,
       username: foundUser.username,
     });
+
+    const decodedTokenPayload = this.jwtService.decode(authToken);
+    const issuedAt = new Date(decodedTokenPayload.iat * 1000);
+    const expiresOn = new Date(decodedTokenPayload.exp * 1000);
+
+    const user = {
+      id: foundUser.id,
+      username,
+      authToken,
+      issuedAt,
+      expiresOn,
+    };
+    return user;
   }
 
   hashPassword(plainTextPassword) {
