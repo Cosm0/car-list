@@ -6,6 +6,8 @@
 - change current vehicle position (longitude/latitude) to address
 - add / remove / edit renters
 - renting a car - link a renters with a vehicle
+- feeding database with dummy data for dev environment
+- use faker to construct dummy data
 
 ## FRONT TODO
 
