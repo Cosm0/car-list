@@ -54,10 +54,10 @@ export class AuthService {
       username: authResp.username,
       id: authResp.id,
       authToken: authResp.authToken,
-      expiresOn: new Date(new Date().getTime() + +authResp.expiresOn * 1000),
-      issuedAt: new Date(new Date().getTime() + +authResp.issuedAt * 1000),
+      expiresOn: new Date(authResp.expiresOn),
+      issuedAt: new Date(authResp.issuedAt),
     };
-    this.setAutoSignOut(+authResp.expiresOn * 1000)
+    this.setAutoSignOut(new Date(authResp.expiresOn).getTime() - Date.now())
     this.userSub.next(user);
     sessionStorage.setItem(this.sessionStorageUserKey, JSON.stringify(user));
   }
@@ -68,11 +68,12 @@ export class AuthService {
     const parsedUserData = JSON.parse(userData);
     const user: User = {
       ...parsedUserData,
-      tokenExpiresOn: new Date(parsedUserData.tokenExpiresOn)
+      expiresOn: new Date(parsedUserData.expiresOn),
+      issuedAt: new Date(parsedUserData.issuedAt)
     };
 
     if(user.expiresOn > new Date()) {
-      this.setAutoSignOut(user.expiresOn.getTime() - new Date().getTime())
+      this.setAutoSignOut(user.expiresOn.getTime() - Date.now())
       this.userSub.next(user);
     }
   }
