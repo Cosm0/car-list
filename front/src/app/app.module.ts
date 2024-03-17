@@ -18,7 +18,6 @@ import { NotImplementedComponentComponent } from './not-implemented-component/no
     RoutingModule,
     SharedModule,
     AuthModule,
-    StoreModule.forRoot({}, {}),
   ],
   bootstrap: [AppComponent]
 })
