@@ -60,3 +60,4 @@ node_modules/
 dist/
 build/
 .editorconfig
+.angular/
