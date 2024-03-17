@@ -13,28 +13,26 @@ export class FeedDatabase1710363485427 implements MigrationInterface {
         ('Honda', 'Civic', 'def456', '0987654321qwerty', 50, 40);
     `,
     renters: `
-    INSERT INTO renters (firstname, lastname, idNbr, address, email) 
-    VALUES 
-      ('Adam', 'Nowak', 'id123', 'Malinowa 123, Stumilowy Las', 'prosiaczek@100las.pl'), 
-      ('Jan', 'Kowalski', 'id456', 'Jagodowa 321, Stumilowy Las', 'tygrysek@100las.pl');
-    `,
+      INSERT INTO renters (firstname, lastname, idNbr, address, email) 
+      VALUES 
+        ('Adam', 'Nowak', 'id123', 'Malinowa 123, Stumilowy Las', 'prosiaczek@100las.pl'), 
+        ('Jan', 'Kowalski', 'id456', 'Jagodowa 321, Stumilowy Las', 'tygrysek@100las.pl');
+      `,
   };
 
   public async up(queryRunner: QueryRunner): Promise<void> {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    for (const [tableName, createQuery] of Object.entries(this.data)) {
-      await queryRunner.query(createQuery);
+    for (const query of Object.values(this.data)) {
+      await queryRunner.query(query);
     }
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    for (const [tableName, createQuery] of Object.entries(this.data)) {
+    for (const tableName of Object.keys(this.data)) {
       this.truncateTable(queryRunner, tableName);
     }
   }
 
-  async truncateTable(queryRunner: QueryRunner, tableName: string) {
+  private async truncateTable(queryRunner: QueryRunner, tableName: string) {
     await queryRunner.query(`TRUNCATE TABLE ${tableName}`);
   }
 }
