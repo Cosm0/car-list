@@ -1,0 +1,76 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* margins */
+.m-5 {
+  margin: 5px;
+}
+
+.m-10 {
+  margin: 10px;
+}
+
+/* margins botton */
+.mb-5 {
+  margin-bottom: 5px;
+}
+
+.mb-10 {
+  margin-bottom: 10px;
+}
+
+/* margins top */
+.mt-5 {
+  margin-top: 5px;
+}
+
+.mt-10 {
+  margin-top: 10px;
+}
+
+/* margins right */
+.mr-5 {
+  margin-right: 5px;
+}
+
+.mr-10 {
+  margin-right: 10px;
+}
+
+/* margins left */
+.ml-5 {
+  margin-left: 5px;
+}
+
+.ml-10 {
+  margin-left: 10px;
+}
+
+.inline {
+  display: inline-block;
+}
+
+.alert-msg {
+  color: coral;
+}
+
+#err-box {
+  position: relative;
+}
+
+#close-err {
+  position: absolute;
+  right: 0px;
+  margin: 5px;
+}
+
+a {
+  cursor: pointer;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.success-msg {
+  color: green;
+}

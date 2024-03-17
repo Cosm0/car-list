@@ -4,3 +4,5 @@ dist/
 build/
 env/api.env
 env/db.env
+.editorconfig
+.angular/
