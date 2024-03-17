@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, Route, RouterModule } from '@angular/router';
+
 import { NotImplementedComponentComponent } from './not-implemented-component/not-implemented-component.component';
+import { canActivateProtectedRoute } from './guards/canActivateProtectedRoute.guard';
 
 const routes: Route[] = [
   { path: '', redirectTo: '/sign-in', pathMatch: 'full' },
@@ -11,6 +13,7 @@ const routes: Route[] = [
   {
     path: 'vehicles',
     component: NotImplementedComponentComponent,
+    canActivate: [canActivateProtectedRoute]
   },
 ];
 
