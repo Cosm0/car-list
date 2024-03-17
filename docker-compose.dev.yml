@@ -13,7 +13,6 @@ services:
         condition: service_healthy
     env_file:
       - ./env/api.env
-      - ./env/db.env
     environment:
       - NODE_ENV=develop
     volumes:
