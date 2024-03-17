@@ -3,13 +3,13 @@
 ## API TODO
 
 - hashed user pswd in db
-- change longitude/latitude types from numbers to GeoJSON
+- change current vehicle position (longitude/latitude) to address
 - add / remove / edit renters
 - renting a car - link a renters with a vehicle
 
 ## FRONT TODO
 
-- vehicles list
+- vehicles list (with current vehicles address presentation)
 - adding/editing/deleting a vehicle
 - containerize frontend (prod and dev environments)
 - implement redux usage
