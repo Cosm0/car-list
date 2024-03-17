@@ -1,13 +1,13 @@
 {
-  "name": "angular-tutorial",
-  "version": "0.0.0",
+  "name": "car-list",
+  "version": "0.0.1",
   "scripts": {
-    "ng": "ng",
-    "start": "ng serve --proxy-config proxy.conf.json",
-    "start:open": "ng serve --open --proxy-config proxy.conf.json",
-    "build": "ng build",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "ng": "npx ng",
+    "start": "npx ng serve --proxy-config proxy.conf.json",
+    "start:open": "npx ng serve --open --proxy-config proxy.conf.json",
+    "build": "npx ng build",
+    "watch": "npx ng build --watch --configuration development",
+    "test": "npx ng test"
   },
   "private": true,
   "dependencies": {
