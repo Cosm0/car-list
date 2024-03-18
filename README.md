@@ -44,7 +44,9 @@
 
 ## How to run
 
-Prerequisite is to have `Make` package installed (`sudo apt install -y make`)
+Prerequisites 
+- `Make` package installed (`sudo apt install -y make`)
+- Docker installed
 
 ### Dev environment
 
