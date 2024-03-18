@@ -103,3 +103,4 @@ There is a whole bunch of stuff to be done. Below are listed most crucial points
 ### General
 
 - move common interfaces (used by front and api) to some shared folder
+- use `nx` to handle monorepo
