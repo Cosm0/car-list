@@ -26,11 +26,6 @@ const routes: Route[] = [
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: ResponseErrorInterceptorService,
-      multi: true,
-    },
-    {
-      provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true,
     }

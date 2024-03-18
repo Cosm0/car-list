@@ -12,7 +12,7 @@ const routes: Route[] = [
   },
   {
     path: 'vehicles',
-    component: NotImplementedComponentComponent,
+    loadChildren: () => import('./vehicles/vehicles.module').then(m => m.RecipesModule),
     canActivate: [canActivateProtectedRoute]
   },
 ];
